@@ -1,8 +1,8 @@
 # Doctor App
 ## How to Install and Use it
+### Steps to follow
 
-### Steps to follow:
- > Install requirements to use this Doctor App
+### Install requirements:
  - pip install requirements.txt
   
   ***
