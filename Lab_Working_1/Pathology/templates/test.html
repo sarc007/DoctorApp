@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load crispy_forms_tags %}
+<html>
+    <head>
+        <title>Test Page</title>
+    </head>
+    <body>
+
+    <form method="post">
+        <h2 class="title">Add Test</h2>
+        <h3>Select Test</h3>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+    </body>
+</html>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

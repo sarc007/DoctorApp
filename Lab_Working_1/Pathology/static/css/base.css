@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+
+    background-image: url('../Images/Medicalimage.jpg');
+    background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+     background-attachment: fixed;
+}
+
+.container{
+    height:100%;
+    width:100%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    margin: 0 0 0 7% auto;
+
+}
+
+.card{
+    width: 800px;
+    heigth: 480px;
+    position: center;
+    margin: 5% 0 10% 0;
+    padding: 5px;
+    background-color: rgba(0,0,0, 0.1);
+
+}
+
+.card-body {
+
+}
+
+
+

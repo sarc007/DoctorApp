@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block body %}
+<body>
+    <strong>You have been logged Out</strong>&nbsp;&nbsp;&nbsp;<a href="{% url 'login' %}">Login Again!</a>
+    <strong>Home Page of ths site!</strong>&nbsp;&nbsp;&nbsp;<a href="{% url 'home' %}">Home Page!</a>
+</body>
+{% endblock %}

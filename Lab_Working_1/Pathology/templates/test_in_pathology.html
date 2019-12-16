@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<!--<script src="{% static 'js/js.js' %}"></script>-->
+<form method='post'>
+    {% csrf_token %}
+    <tr>
+        <th><label><b>{{ patient_name }}</b></label></th>
+        <td>
+            <ul id="id_test1">
+                {% for test in tests %}
+                <li><label for="id_test1_0"><input type="checkbox" name="test" value="{{ test }}" id="id_test1_0">
+                    {{ test }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+
+    Do you want to add test?<a href="{% url 'add_test' %}">Click here</a><br>
+    <button type="submit" , class="btn btn-primary btn-sm" onclick="getSelectedValue()">Submit</button>
+</form>
+{% endblock %}

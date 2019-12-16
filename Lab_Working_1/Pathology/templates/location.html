@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load crispy_forms_tags %}
+    <h2 class="title">Location</h2><br>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

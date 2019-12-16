@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+  <link href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel = "stylesheet" href="{% static 'css/base.css' %}">
+<!--  <link rel = "stylesheet" href="{% static 'css/base.css' %}">-->
+
+  <body>
+       <div class="container">
+           <div class = "card">
+                <div class="card-body">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <form class="form" action="" method="post" enctype="multipart/form-data">
+                                    {% block body %}{% endblock %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+  </body>
+</html>

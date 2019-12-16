@@ -1,0 +1,346 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<html>
+  <link href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+  <body>
+
+
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <form class="form" action="" method="post" enctype="multipart/form-data">
+
+
+    <title>Report Page</title>
+
+    <style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    height:100%;
+    width:100%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    margin: 0 0 0 7% auto;
+
+}
+
+
+#top_table
+{
+    width:100%;
+    cellpadding:15;
+    position: left;
+}
+
+
+#rheading
+{
+    text-align: center;
+}
+
+
+
+#img_head
+{
+    align: center;
+    width: 100%;
+}
+
+.double
+{
+    border-style: double;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+
+}
+
+       </style>
+
+    <br>
+    Do you want to Change location?<a href="{% url 'location' %}" >Click here</a><br><br>
+    <div id="content_id" class = "double">
+    <img id="img_head" src = "{% static 'Images/labheader.png'%}">
+<!--    <h2 class="title">Patient Report</h2>-->
+                    <p>
+                    <table id="top_table">
+                        <tr>
+                            <td><p><h6><b>Name: </b>{{ patient_name}}</h6></p></td>
+                            <td><p><h6></h6></p></td>
+                            <td><p><h6><b>Gender: </b>{{ patient_name.Gender }}</h6></p></td>
+                            <td><p><h6></h6></p></td>
+                        </tr>
+                        <tr>
+                            <td><p><h6><b>Phone Number: </b>{{ patient_name.phone }}</h6></p></td>
+                            <td><p><h6></h6></p></td>
+                            <td><p><h6><b>Age: </b>{{ patient_name.Age }}</h6></p></td>
+                            <td><p><h6></h6></p></td>
+                        </tr>
+                        <tr>
+                            <td><p><h6><b>Date & Time: </b>{{patient_name.time}}</h6></p></td>
+                            <td><p><h6></h6></p></td>
+                            <td><p><h6><b>Location: </b>{{ Location }}</h6></p></td>
+                            <td><p><h6></h6></p></td>
+                        </tr>
+                    </table>
+                    </p>
+                    <input type="hidden" value="{{ patient_name }}" id = "pname">
+<!--                    <p><h6><b>Lab Location: </b>{{  Location }}</h6></p><br>-->
+                    <h4 id="rheading"><u><b>REPORTS</b></u></h4>
+                    <br>
+
+                     <table class = "table" border="0" style="text-align:left;cellpadding:15;">
+                        <tr>
+                            <th>Tests</th>
+                            <th>Results</th>
+                            <th>Confidence</th>
+                            <th>Heat Map</th>
+                        </tr>
+                        <tr>
+                           <td>
+                              {% for val in value %}
+                                 <table class="inner_table1" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                       {{ val }}
+                                    </tr>
+                                 </table>
+                              {% endfor %}
+                           </td>
+                           <td>
+                              {% for n in newlist %}
+                                 <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                       {{ n }}
+                                    </tr>
+                                 </table>
+                              {% endfor %}
+                           </td>
+                            <td>
+                              {% for n in confList %}
+                                 <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                       {{ n }}
+                                    </tr>
+                                 </table>
+                              {% endfor %}
+                           </td>
+                            <td>
+                              {% for n in heatList %}
+                                 <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+<!--                                       <img src="{{ n }}" height="200" width="200" />-->
+<!--                                       {{ n }}-->
+                                        <img src="{%static 'heatmap/heatmap.png' %}" height="200" width="200"/>
+                                    </tr>
+                                 </table>
+                              {% endfor %}
+                           </td>
+                        </tr>
+                     </table>
+
+
+
+                  <!--   <p><h5>Test Conducted  :    </h5>-->
+
+<!--                  <p>-->
+<!--                  <b>Tests : </b>-->
+<!--                            {% for  val in value %}-->
+<!--                                <br>{{  val  }}-->
+<!--                            {% endfor %}-->
+<!--                  </p>-->
+<!--                  <p>-->
+<!--                  <b>Results: </b>-->
+<!--                            {% for  val in newlist %}-->
+<!--                                <br>{{  val  }}-->
+<!--                            {% endfor %}-->
+<!--                  </p>-->
+
+
+    </div>
+
+
+    <div id="editor"></div>
+    <br>
+    <div style="text-align:center;"> <a href="#" id="cmd" class="btn btn-primary">Download PDF</a></div>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"/></script>
+
+<script>
+
+    var doc = new jsPDF('p', 'pt', 'letter');
+
+        var specialElementHandlers = {
+            '#editor': function (element, renderer){
+                return true;
+            }
+        }
+
+        $('#cmd').click(function() {
+
+                  var w = document.getElementById("content_id").offsetWidth;
+                  var h = document.getElementById("content_id").offsetHeight;
+                  html2canvas(document.getElementById("content_id"), {
+                    dpi: 300, // Set to 300 DPI
+                    scale: 3, // Adjusts your resolution
+                    onrendered: function (canvas) {
+
+                      var img = canvas.toDataURL("image/jpg", 1);
+                      var doc = new jsPDF('L', 'px', [w, h]);
+                      doc.addImage(img, 'JPG', 0, 0, w, h);
+                      var name = document.getElementById("pname").value
+                      doc.save(name + '_report.pdf');
+                    }
+                  });
+         });
+
+
+
+<!--        $('#cmd').click(function () {-->
+<!--          var w = document.getElementById("#content_id").offsetWidth;-->
+<!--          var h = document.getElementById("#content_id").offsetHeight;-->
+<!--          html2canvas(document.getElementById("#content_id"), {-->
+<!--            dpi: 300, // Set to 300 DPI-->
+<!--            scale: 3, // Adjusts your resolution-->
+<!--            onrendered: function(canvas) {-->
+<!--              var img = canvas.toDataURL("image/jpeg", 1);-->
+<!--              var doc = new jsPDF('L', 'px', [w, h]);-->
+<!--              doc.addImage(img, 'JPEG', 0, 0, w, h);-->
+<!--              doc.save('sample-file.pdf');-->
+<!--            }-->
+<!--          });-->
+<!--        });-->
+
+
+
+    </script>
+
+                                </form>
+                            </div>
+                        </div>
+
+
+           </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+<!--        $('#cmd').click(function () {-->
+<!--            doc.fromHTML($('#content_id').html(), 15, 15, {-->
+<!--                'width': 170,-->
+<!--                    'elementHandlers': specialElementHandlers-->
+<!--            });-->
+
+<!--            var name = document.getElementById("pname").value-->
+<!--            doc.save(name+'_report.pdf');-->
+<!--        });-->
+
+
+
+
+
+<!--//<table width=40>-->
+<!--//                            <tr>-->
+<!--//                                <th>Tests</th>-->
+<!--//                            </tr>-->
+<!--//                            {% for val in value %}-->
+<!--//                            <tr>-->
+<!--//                                <td align="left">-->
+<!--//                                    {{ val }}-->
+<!--//                                </td>-->
+<!--//                            </tr>-->
+<!--//                            {% endfor %}-->
+<!--//                       </table>-->
+<!--//                       <br>-->
+<!--//                       <table width=40>-->
+<!--//                            <tr>-->
+<!--//                                <th>Results</th>-->
+<!--//                            </tr>-->
+<!--//                            {% for n in newlist %}-->
+<!--//                            <tr>-->
+<!--//                                <td align="left">-->
+<!--//                                    {{ n }}-->
+<!--//                                </td>-->
+<!--//                            </tr>-->
+<!--//                            {% endfor %}-->
+<!--//                       </table>-->
+
+
+
+
+
+
+<!--//                     <br><p><h5>Tests:    </h5>-->
+<!--//                            {% for val in value %}-->
+<!--//                                    <br>{{ val }}-->
+<!--//                            {% endfor %}-->
+<!--//                     </p>-->
+<!--//                     <br>-->
+<!--//                     <h5>Results:  </h5>-->
+<!--//                            {% for n in newlist %}-->
+<!--//                                    <br>{{ n }}-->
+<!--//                            {% endfor %}-->
+
+
+<!--//            setpixelated(canvas.getContext('2d')); // For More Clear Images in all browsers-->
+<!--//            function setpixelated(context) {-->
+<!--//            context['imageSmoothingEnabled'] = false; /* standard /-->
+<!--//            context['mozImageSmoothingEnabled'] = false; / Firefox /-->
+<!--//            context['oImageSmoothingEnabled'] = false; / Opera /-->
+<!--//            context['webkitImageSmoothingEnabled'] = false; / Safari /-->
+<!--//            context['msImageSmoothingEnabled'] = false; / IE */-->
+<!--//                }-->
+
+
+
+<!--//<table class = "table" border="0">-->
+<!--//                        <tr>-->
+<!--//                            <th>Tests</th>-->
+<!--//                            <th>Results</th>-->
+<!--//                        </tr>-->
+<!--//                        <tr>-->
+<!--//                           <td>-->
+<!--//                              {% for val in value %}-->
+<!--//                                 <table class="inner_table1" border="0">-->
+<!--//                                    <tr>-->
+<!--//                                       {{ val }}-->
+<!--//                                    </tr>-->
+<!--//                                 </table>-->
+<!--//                              {% endfor %}-->
+<!--//                           </td>-->
+<!--//                           <td>-->
+<!--//                              {% for n in newlist %}-->
+<!--//                                 <table class="inner_table2" border="0">-->
+<!--//                                    <tr>-->
+<!--//                                       {{ n }}-->
+<!--//                                    </tr>-->
+<!--//                                 </table>-->
+<!--//                              {% endfor %}-->
+<!--//                           </td>-->
+<!--//                        </tr>-->
+<!--//                     </table>-->
+
+
+
+<!--//        var doc = new jsPDF('p', 'pt', 'letter');-->
+<!--//-->
+<!--//        var specialElementHandlers = {-->
+<!--//            '#editor': function (element, renderer){-->
+<!--//                return true;-->
+<!--//            }-->
+<!--//        }-->
