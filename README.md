@@ -12,5 +12,5 @@
   > Linux
   - python3 manage.py runserver
   
-  
+  ***
   ### Path change instructions:
