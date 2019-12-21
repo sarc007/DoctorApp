@@ -1,4 +1,4 @@
 django
-django-crispy-forms==1.8.1
-bootstrap4==0.1.0
-django-multiselectfield==0.1.10
+django-crispy-forms
+bootstrap4
+django-multiselectfield
