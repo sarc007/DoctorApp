@@ -2,7 +2,7 @@
 ## Steps to follow
 
 ### Install requirements:
- - pip install requirements.txt
+ - pip3 install -r requirements.txt
   
   ***
   ### Path change instructions:
